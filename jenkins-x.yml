@@ -4,7 +4,7 @@ pipelineConfig:
     pullRequest:
       pipeline:
         agent:
-          image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          image: 9.46.76.93:5000/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
         stages:
           - name: CI
             environment:
@@ -44,16 +44,16 @@ pipelineConfig:
                 - --client-only
 
               - name: build-and-push-image
-                image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+                image: 9.46.76.93:5000/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
                 command: /kaniko/executor
                 args: 
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/dex:${inputs.params.version}
+                - --destination=9.46.76.93:5000/jenkinsxio/dex:${inputs.params.version}
                 - --context=/workspace/source
                 - --cache-dir=/workspace
 
               - name: helm-lint
-                image: gcr.io/jenkinsxio/builder-go:0.1.332
+                image: 9.46.76.93:5000/jenkinsxio/builder-go:0.1.332
                 command: make
                 args:
                 - build
@@ -62,7 +62,7 @@ pipelineConfig:
     release:
       pipeline:
         agent:
-          image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+          image: 9.46.76.93:5000/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
         stages:
           - name: release
             environment:
@@ -137,16 +137,16 @@ pipelineConfig:
                   - /builder/home/basic-auth-pass
 
               - name: build-and-push-image
-                image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+                image: 9.46.76.93:5000/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
                 command: /kaniko/executor
                 args: 
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/dex:${inputs.params.version}
+                - --destination=9.46.76.93:5000/jenkinsxio/dex:${inputs.params.version}
                 - --context=/workspace/source
                 - --cache-dir=/workspace
 
               - name: release-chart
-                image: gcr.io/jenkinsxio/builder-go:0.1.332
+                image: 9.46.76.93:5000/jenkinsxio/builder-go:0.1.332
                 command: make
                 args:
                 - release
